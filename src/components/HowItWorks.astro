@@ -1,0 +1,85 @@
+---
+import { defaultLang, type SupportedLanguage, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang?: SupportedLanguage;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
+const steps = [
+  {
+    num: '01',
+    title: t('howItWorks.step1Title'),
+    desc: t('howItWorks.step1Desc'),
+    icon: 'table',
+  },
+  {
+    num: '02',
+    title: t('howItWorks.step2Title'),
+    desc: t('howItWorks.step2Desc'),
+    icon: 'pie',
+  },
+  {
+    num: '03',
+    title: t('howItWorks.step3Title'),
+    desc: t('howItWorks.step3Desc'),
+    icon: 'download',
+  },
+];
+---
+
+<section id="how-it-works" class="py-16 sm:py-20 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-100/50 dark:bg-slate-900/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        {t('howItWorks.title')}
+      </h2>
+      <p class="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-400">
+        {t('howItWorks.subtitle')}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+      {steps.map((step) => (
+        <div class="relative flex flex-col p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all">
+          <div class="flex items-center justify-between mb-6">
+            <span class="text-3xl font-black text-theme-orange tracking-tighter">
+              {step.num}
+            </span>
+            <div class="w-10 h-10 rounded-xl bg-theme-cream dark:bg-amber-950/40 text-amber-950 dark:text-theme-orange border border-amber-300/50 dark:border-amber-700/50 flex items-center justify-center">
+              {step.icon === 'table' && (
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18" />
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <path d="M3 9h18" />
+                  <path d="M3 15h18" />
+                </svg>
+              )}
+              {step.icon === 'pie' && (
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                  <path d="M22 12A10 10 0 0 0 12 2v10z" />
+                </svg>
+              )}
+              {step.icon === 'download' && (
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              )}
+            </div>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2.5">
+            {step.title}
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            {step.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

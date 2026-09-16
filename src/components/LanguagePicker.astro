@@ -1,0 +1,111 @@
+---
+import { languages, defaultLang, type SupportedLanguage, getLocalizedPath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang?: SupportedLanguage;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+const currentPathname = Astro.url.pathname;
+
+const languageFlags: Record<SupportedLanguage, string> = {
+  en: '🇺🇸',
+  es: '🇪🇸',
+  pt: '🇧🇷',
+  de: '🇩🇪',
+  fr: '🇫🇷',
+  ja: '🇯🇵',
+};
+---
+
+<div class="relative inline-block text-left" id="language-picker-container">
+  <button
+    type="button"
+    id="language-picker-btn"
+    class="inline-flex items-center justify-center h-9 px-2 lg:px-2.5 text-xs sm:text-sm font-medium rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-theme-orange gap-1.5 shrink-0"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-label={t('nav.selectLanguage')}
+  >
+    <span class="text-sm" aria-hidden="true">{languageFlags[lang]}</span>
+    <span class="hidden lg:inline font-semibold">{languages[lang]}</span>
+    <svg class="w-3.5 h-3.5 text-slate-400 ml-0.5 hidden lg:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <div
+    id="language-dropdown-menu"
+    class="hidden absolute right-0 z-50 mt-2 w-44 origin-top-right rounded-lg bg-white dark:bg-slate-900 p-1.5 shadow-xl ring-1 ring-black/5 dark:ring-white/10 focus:outline-none border border-slate-100 dark:border-slate-800"
+    role="menu"
+    aria-orientation="vertical"
+    tabindex="-1"
+  >
+    {Object.entries(languages).map(([key, name]) => {
+      const code = key as SupportedLanguage;
+      const isCurrent = code === lang;
+      const targetUrl = getLocalizedPath(code, currentPathname);
+
+      return (
+        <a
+          href={targetUrl}
+          class={`flex items-center justify-between px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${
+            isCurrent
+              ? 'bg-theme-cream text-slate-900 dark:bg-theme-orange/20 dark:text-theme-orange font-semibold'
+              : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+          }`}
+          role="menuitem"
+        >
+          <span class="flex items-center gap-2">
+            <span class="text-sm" aria-hidden="true">{languageFlags[code]}</span>
+            <span>{name}</span>
+          </span>
+          {isCurrent && (
+            <svg class="w-4 h-4 text-theme-orange" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          )}
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const container = document.getElementById('language-picker-container');
+    const btn = document.getElementById('language-picker-btn');
+    const menu = document.getElementById('language-dropdown-menu');
+
+    if (!container || !btn || !menu) return;
+
+    function toggleMenu() {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isExpanded));
+      menu.classList.toggle('hidden');
+    }
+
+    function closeMenu() {
+      btn.setAttribute('aria-expanded', 'false');
+      menu.classList.add('hidden');
+    }
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+  })();
+</script>
