@@ -26,6 +26,10 @@ export const ui = {
     'nav.supportTooltip': 'Buy me a coffee to support free open tools',
     'nav.github': 'GitHub',
 
+        // Breadcrumbs
+    'breadcrumbs.home': 'Home',
+    'breadcrumbs.studio': 'Chart Studio',
+
     // Hero
     'hero.badge': '100% Client-Side & Free',
     'hero.title': 'Free Online Pie & Bar Chart Generator',
@@ -144,6 +148,10 @@ export const ui = {
     'nav.support': 'Apoyar al Desarrollador',
     'nav.supportTooltip': 'Invítame un café para apoyar herramientas libres',
     'nav.github': 'GitHub',
+
+        // Breadcrumbs
+    'breadcrumbs.home': 'Inicio',
+    'breadcrumbs.studio': 'Estudio de Gráficos',
 
     // Hero
     'hero.badge': '100% en el Navegador y Gratis',
@@ -266,6 +274,10 @@ export const ui = {
     'nav.supportTooltip': 'Pague-me um café para apoiar ferramentas abertas',
     'nav.github': 'GitHub',
 
+        // Breadcrumbs
+    'breadcrumbs.home': 'Início',
+    'breadcrumbs.studio': 'Estúdio de Gráficos',
+
     // Hero
     'hero.badge': '100% no Navegador e Grátis',
     'hero.title': 'Gerador Gratuito de Gráficos de Pizza e Barras',
@@ -386,6 +398,10 @@ export const ui = {
     'nav.support': 'Entwickler unterstützen',
     'nav.supportTooltip': 'Spendieren Sie einen Kaffee zur Unterstützung kostenloser Tools',
     'nav.github': 'GitHub',
+
+        // Breadcrumbs
+    'breadcrumbs.home': 'Startseite',
+    'breadcrumbs.studio': 'Diagramm-Studio',
 
     // Hero
     'hero.badge': '100% Browserbasiert & Kostenlos',
@@ -508,6 +524,10 @@ export const ui = {
     'nav.supportTooltip': 'Offrez-moi un café pour soutenir les outils libres',
     'nav.github': 'GitHub',
 
+        // Breadcrumbs
+    'breadcrumbs.home': 'Accueil',
+    'breadcrumbs.studio': 'Studio de Graphiques',
+
     // Hero
     'hero.badge': '100% Navigateur & Gratuit',
     'hero.title': 'Générateur Gratuit de Graphiques Circulaires & Barres',
@@ -628,6 +648,10 @@ export const ui = {
     'nav.support': '開発者を支援する',
     'nav.supportTooltip': '無料ツール維持のためコーヒーをおごる',
     'nav.github': 'GitHub',
+
+        // Breadcrumbs
+    'breadcrumbs.home': 'ホーム',
+    'breadcrumbs.studio': 'チャートスタジオ',
 
     // Hero
     'hero.badge': '100% ブラウザ完結＆完全無料',

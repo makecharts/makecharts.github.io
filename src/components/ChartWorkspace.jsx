@@ -418,14 +418,16 @@ export default function ChartWorkspace({ lang = 'en' }) {
 
             {/* Chart Title Input */}
             <div className="space-y-1.5">
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300">
+              <label htmlFor="chart-title-input" className="block text-xs font-medium text-slate-700 dark:text-slate-300">
                 {t('workspace.chartTitleLabel')}
               </label>
               <input
+                id="chart-title-input"
                 type="text"
                 value={chartTitle}
                 onChange={(e) => setChartTitle(e.target.value)}
                 placeholder={t('workspace.chartTitlePlaceholder')}
+                aria-label={t('workspace.chartTitleLabel')}
                 className="w-full px-3.5 py-2 rounded-xl text-sm border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-orange transition-colors"
               />
             </div>
@@ -522,6 +524,7 @@ export default function ChartWorkspace({ lang = 'en' }) {
                         onChange={(e) => handleUpdateRow(row.id, 'color', e.target.value)}
                         className="absolute -top-2 -left-2 w-12 h-12 cursor-pointer border-0 p-0"
                         title={t('workspace.colColor')}
+                        aria-label={`${t('workspace.colColor')}: ${row.label || 'row'}`}
                       />
                     </div>
 
@@ -531,6 +534,7 @@ export default function ChartWorkspace({ lang = 'en' }) {
                       value={row.label}
                       onChange={(e) => handleUpdateRow(row.id, 'label', e.target.value)}
                       placeholder={t('workspace.colLabel')}
+                      aria-label={`${t('workspace.colLabel')} ${row.label || ''}`}
                       className="flex-grow min-w-0 px-2.5 py-1 text-xs rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-800 focus:border-theme-orange bg-transparent focus:bg-white dark:focus:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none transition-colors"
                     />
 
@@ -540,6 +544,7 @@ export default function ChartWorkspace({ lang = 'en' }) {
                       value={row.value}
                       onChange={(e) => handleUpdateRow(row.id, 'value', e.target.value)}
                       placeholder="0"
+                      aria-label={`${t('workspace.colValue')} for ${row.label || 'row'}`}
                       className="w-20 px-2 py-1 text-xs font-mono text-right rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-800 focus:border-theme-orange bg-transparent focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white focus:outline-none transition-colors"
                     />
 
@@ -549,6 +554,7 @@ export default function ChartWorkspace({ lang = 'en' }) {
                       onClick={() => handleDeleteRow(row.id)}
                       className="w-7 h-7 shrink-0 flex items-center justify-center rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
                       title={t('workspace.deleteRow')}
+                      aria-label={`${t('workspace.deleteRow')}: ${row.label || 'row'}`}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -610,6 +616,7 @@ export default function ChartWorkspace({ lang = 'en' }) {
                     onClick={() => setShowWatermark(false)}
                     className="ml-1 text-slate-400 hover:text-rose-500 transition-colors"
                     title="Remove watermark"
+                    aria-label="Remove watermark"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -786,10 +793,15 @@ export default function ChartWorkspace({ lang = 'en' }) {
 
       {/* CSV / TSV Paste Modal */}
       {isCsvModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="csv-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs"
+        >
           <div className="w-full max-w-xl bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <h3 id="csv-modal-title" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <FileSpreadsheet className="w-5 h-5 text-theme-orange dark:text-blue-400" />
                 <span>{t('workspace.csvModalTitle')}</span>
               </h3>
@@ -797,6 +809,8 @@ export default function ChartWorkspace({ lang = 'en' }) {
                 type="button"
                 onClick={() => setIsCsvModalOpen(false)}
                 className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                title="Close dialog"
+                aria-label="Close dialog"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -811,6 +825,7 @@ export default function ChartWorkspace({ lang = 'en' }) {
               value={csvText}
               onChange={(e) => setCsvText(e.target.value)}
               placeholder={t('workspace.csvModalPlaceholder')}
+              aria-label={t('workspace.csvModalTitle')}
               className="w-full font-mono text-xs p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-orange mb-2"
             />
 

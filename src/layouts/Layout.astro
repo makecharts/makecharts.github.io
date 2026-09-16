@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { defaultLang, type SupportedLanguage, useTranslations, getHreflangLinks } from '../i18n/utils';
+import { defaultLang, type SupportedLanguage, useTranslations, getHreflangLinks, supportedLocales } from '../i18n/utils';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -20,9 +20,46 @@ const siteUrl = 'https://makecharts.github.io';
 const canonicalUrl = new URL(currentPathname, siteUrl).href;
 const hreflangLinks = getHreflangLinks(currentPathname, siteUrl);
 
+const ogImageUrl = 'https://res.cloudinary.com/dpx6w78bt/image/upload/f_auto/q_auto/v1786342039/Online_Tool_rc1ybr.png';
+
+const ogLocaleMap: Record<SupportedLanguage, string> = {
+  en: 'en_US',
+  es: 'es_ES',
+  pt: 'pt_BR',
+  de: 'de_DE',
+  fr: 'fr_FR',
+  ja: 'ja_JP',
+};
+
 const jsonLdSchema = {
   '@context': 'https://schema.org',
   '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: 'MakeCharts',
+      description: 'Free Online Pie & Bar Chart Generator',
+      inLanguage: lang,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: t('breadcrumbs.home'),
+          item: `${siteUrl}${lang === defaultLang ? '/' : `/${lang}/`}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: t('breadcrumbs.studio'),
+          item: `${canonicalUrl}#workspace`,
+        },
+      ],
+    },
     {
       '@type': 'WebApplication',
       '@id': `${siteUrl}/#webapp`,
@@ -32,6 +69,16 @@ const jsonLdSchema = {
       applicationCategory: 'DesignApplication, UtilityApplication',
       operatingSystem: 'All',
       browserRequirements: 'Requires modern web browser with JavaScript enabled',
+      screenshot: ogImageUrl,
+      softwareVersion: '1.0.0',
+      featureList: [
+        'Interactive Pie & Bar Charts',
+        'Direct CSV/TSV data pasting',
+        'Instant Vector SVG download',
+        'High-Resolution PNG export',
+        'Watermark-free export option',
+        '100% client-side privacy',
+      ],
       offers: {
         '@type': 'Offer',
         price: '0',
@@ -134,13 +181,20 @@ const jsonLdSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     
+    <!-- Performance & Resource Preconnect Hints -->
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+
     <!-- Primary Meta Tags -->
     <title>{pageTitle}</title>
     <meta name="title" content={pageTitle} />
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content="pie chart maker, bar chart maker, online chart generator, free chart maker, svg chart export, png chart export, recharts, makecharts, privacy first chart maker" />
     <meta name="author" content="MakeCharts" />
-    <meta name="theme-color" content="#2563EB" media="(prefers-color-scheme: light)" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#FF9D50" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
 
     <!-- Canonical URL -->
@@ -157,14 +211,24 @@ const jsonLdSchema = {
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:site_name" content="MakeCharts" />
-    <meta property="og:image" content="https://makecharts.github.io/favicon.svg" />
+    <meta property="og:locale" content={ogLocaleMap[lang] || 'en_US'} />
+    {supportedLocales.filter((l) => l !== lang).map((l) => (
+      <meta property="og:locale:alternate" content={ogLocaleMap[l]} />
+    ))}
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:secure_url" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MakeCharts - Free Online Pie & Bar Chart Generator" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary" />
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalUrl} />
     <meta property="twitter:title" content={pageTitle} />
     <meta property="twitter:description" content={pageDescription} />
-    <meta property="twitter:image" content="https://makecharts.github.io/favicon.svg" />
+    <meta property="twitter:image" content={ogImageUrl} />
+    <meta property="twitter:image:alt" content="MakeCharts - Free Online Pie & Bar Chart Generator" />
 
     <!-- Anti-FOUC Theme Script (Instant Execution Before Render) -->
     <script is:inline>

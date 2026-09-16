@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ChartWorkspace from '../../components/ChartWorkspace.jsx';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Features from '../../components/Features.astro';
 import HowItWorks from '../../components/HowItWorks.astro';
 import Faq from '../../components/Faq.astro';
@@ -20,8 +21,11 @@ const t = useTranslations(lang);
 
 <Layout lang={lang}>
   <!-- Hero Section -->
-  <section class="relative pt-12 pb-10 sm:pt-16 sm:pb-14 overflow-hidden">
+  <section class="relative pt-10 pb-10 sm:pt-14 sm:pb-14 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <!-- Visual Breadcrumbs -->
+      <Breadcrumbs lang={lang} />
+
       <!-- Privacy Badge -->
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-theme-cream dark:bg-slate-900 border border-amber-200/80 dark:border-amber-900/40 text-amber-950 dark:text-amber-200 text-xs font-semibold mb-6 shadow-xs">
         <span class="w-2 h-2 rounded-full bg-theme-green animate-pulse"></span>
