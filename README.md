@@ -5,7 +5,7 @@
 
 [![Deploy to GitHub Pages](https://github.com/makecharts/makecharts.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/makecharts/makecharts.github.io/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Support Developer](https://img.shields.io/badge/Support-Buy%20Me%20a%20Coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/kisharadilz)
+[![Support Developer](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/kishara)
 
 ---
 
@@ -88,8 +88,8 @@ npm run preview
 
 ## ☕ Support the Developer
 
-If you find MakeCharts useful, you can support further development by buying a coffee:  
-👉 **[buymeacoffee.com/kisharadilz](https://buymeacoffee.com/kisharadilz)**
+If you find MakeCharts useful, you can support further development on Ko-fi:  
+👉 **[ko-fi.com/kishara](https://ko-fi.com/kishara)**
 
 ---
 
